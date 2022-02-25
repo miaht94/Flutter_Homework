@@ -8,5 +8,5 @@
 - Thử 1 số Widget cơ bản (Layout Widget, Media Widget, Input Widget) trong Plant App
 ### Code tuần 1: [Stater App](https://github.com/miaht94/Flutter_Homework/tree/master/Bai_1/starter_app), [Plant App](https://github.com/miaht94/Flutter_Homework/tree/master/Plant%20App)
 
-![Plant App](Plant App/Screenshot 2022-02-25 012902.png)
+<img src="https://github.com/miaht94/Flutter_Homework/blob/master/Plant%20App/Screenshot%202022-02-25%20012902.png?raw=true" alt="alt text" width="900"/>
 
