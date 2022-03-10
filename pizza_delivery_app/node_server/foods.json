@@ -1,0 +1,34 @@
+[
+    {
+        "title" : "Pizza 1",
+        "rating": 4.0,
+        "price": 5.99,
+        "stared": false,
+        "weight": "Weight 50gr",
+        "imagePath" : "assets/images/pizza1.png"
+    },
+    {
+        "title" : "Pizza 1",
+        "rating": 4.0,
+        "price": 5.99,
+        "stared": false,
+        "weight": "Weight 50gr",
+        "imagePath" : "assets/images/pizza1.png"
+    },
+    {
+        "title" : "Pizza 1",
+        "rating": 4.0,
+        "price": 5.99,
+        "stared": false,
+        "weight": "Weight 50gr",
+        "imagePath" : "assets/images/pizza1.png"
+    },
+    {
+        "title" : "Pizza 1",
+        "rating": 4.0,
+        "price": 5.99,
+        "stared": false,
+        "weight": "Weight 50gr",
+        "imagePath" : "assets/images/pizza1.png"
+    }
+]

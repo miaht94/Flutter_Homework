@@ -2,6 +2,9 @@ import 'dart:io';
 
 import 'package:b12_navigator_routing/plant_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import 'plant.dart';
 
 class PlantPage extends StatelessWidget {
   PlantPage({
@@ -18,12 +21,50 @@ class PlantPage extends StatelessWidget {
   }
 }
 
-class PlantPageBody extends StatelessWidget {
+class PlantPageBody extends StatefulWidget {
   PlantPageBody({
     Key ? key,
     required this.plant
   }): super(key: key);
   Plant plant;
+  @override
+  State<StatefulWidget> createState() {
+    return _PlantPageBody(plant: plant);
+  }
+  
+}
+ 
+class _PlantPageBody extends State<PlantPageBody> with SingleTickerProviderStateMixin{
+  _PlantPageBody({required this.plant});
+  final Plant plant;
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+  final GlobalKey testKey = GlobalKey(debugLabel: "debugLabel");
+  static const CHANNEL = MethodChannel("BACH_CHANNEL");
+  
+  void _onClickTap() async {
+    try {
+      print(await CHANNEL.invokeMethod("getVersion"));
+    } on PlatformException catch(e) {
+
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(vsync: this, duration: Duration(seconds: 10));
+    Tween<double> tween = Tween(begin: 100, end: 200);
+    _animation = tween.animate(_animationController);
+    _animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -36,6 +77,7 @@ class PlantPageBody extends StatelessWidget {
             overflow: Overflow.visible,
             children: [
               Container(
+                key: testKey,
                 height: 0.28 * size.height,
                 width: size.width,
                 decoration: BoxDecoration(
@@ -61,9 +103,24 @@ class PlantPageBody extends StatelessWidget {
         Text(plant.plantTitle,
           textAlign: TextAlign.center,
           style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 25)
-        )
+        ),
+        AnimatedBuilder(animation: _animation, builder: (context, _) {
+          return Image.network('https://i1.sndcdn.com/avatars-zUGIpyyW010rJFrc-rdl0PQ-t240x240.jpg', width: _animation.value, height: _animation.value,);
+        }),
+        GestureDetector(child: Text("Click"), onTap: _onClickTap,)
+        
       ],
     );
   }
 
+}
+
+class ScaleTransition extends AnimatedWidget {
+  ScaleTransition({Key? key, required Animation<double> animation, required Widget child}) : this._child = child, super(key: key, listenable: animation);
+  final Widget _child;
+  @override
+  Widget build(BuildContext context) {
+    Animation<double> animation = listenable as Animation<double>;
+    return _child;
+  }
 }

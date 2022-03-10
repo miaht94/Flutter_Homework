@@ -1,5 +1,12 @@
+import 'package:b12_navigator_routing/body.dart';
+import 'package:b12_navigator_routing/header.dart';
 import 'package:b12_navigator_routing/plant_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:scoped_model/scoped_model.dart';
+
+import 'constant.dart';
+import 'plant.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,12 +41,24 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({
     Key ? key,
     required this.title
   }): super(key: key);
+  final String title;
+  @override
+  State < StatefulWidget > createState() {
+    return _MyHomePage(title: title);
+  }
 
+}
+
+class _MyHomePage extends State <MyHomePage> with SingleTickerProviderStateMixin {
+  _MyHomePage({
+    required this.title
+  });
+  
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
   // how it looks.
@@ -50,24 +69,47 @@ class MyHomePage extends StatelessWidget {
   // always marked "final".
 
   final String title;
+  bool animated = false;
+  late AnimationController animationController;
+  late ScrollController listviewScrollControler;
+  @override
+  void initState() {
+    animationController = AnimationController(duration: Duration(milliseconds: 200), vsync: this)..addListener(() {print(animationController.value);});
+    listviewScrollControler = ScrollController()..addListener(() {
+      // print(listviewScrollControler.offset);
+
+      if (!animated && listviewScrollControler.offset > 10) {
+        animated = true;
+        animationController.forward();
+      }
+      if (animated && listviewScrollControler.offset <= 10) {
+        animated = false;
+        animationController.reverse();
+      }
+
+     });
+     super.initState();
+  }
+
+  void listviewScrollCallback() {
+    
+  }
+
   Widget build(BuildContext context) {
     List < Plant > plants = Plant.initListProduct();
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
       body:
       Container(
-        child: ListView.builder(
-          itemBuilder: (context, index) {
-            return Container(
-              child: PlantCard(plant: plants.elementAt(index)),
-              margin: const EdgeInsets.only(bottom: 10),
-            );
-          },
-          itemCount: plants.length,
-        )
+        width: size.width,
+        height: size.height,
+        child: Stack(
+          children: [
+            MainBody(plants: plants, listviewScrollController: listviewScrollControler,),
+            AnimatedHeader(animationController: animationController),
+          ]),
       )
+
     );
   }
 }

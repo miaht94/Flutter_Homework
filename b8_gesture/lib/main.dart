@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:test_plugin/test_plugin.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -85,17 +85,19 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: GestureDetector(
-          onTap: () {
-            showDialog(context: context, builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text("Just an alert"),
-                content: Text("Dialog content"),
-                actions: [TextButton(onPressed: () {
-                  Navigator.of(context).pop();
-                }, 
-                child: Text("Close"))]
-              );
-            });
+          onTap: () async {
+            // showDialog(context: context, builder: (BuildContext context) {
+            //   return AlertDialog(
+            //     title: Text("Just an alert"),
+            //     content: Text("Dialog content"),
+            //     actions: [TextButton(onPressed: () {
+            //       // Navigator.of(context).pop();
+                  
+            //     }, 
+            //     child: Text("Close"))]
+            //   );
+            // });
+            await TestPlugin.openBrowser("https://docs.flutter.dev/development/platform-integration/platform-channels?tab=android-channel-java-tab");
           },
           // child: ElevatedButton(onPressed: () {}, child: Text("Click"),),
           child: Text("Click"),
