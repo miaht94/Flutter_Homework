@@ -46,4 +46,4 @@ Kết quả chạy App: <br> <img src="https://github.com/miaht94/Flutter_Homewo
 <br> <img src="https://github.com/miaht94/Flutter_Homework/blob/master/bai20_testing/Screenshot%202022-03-11%20035825.png?raw=true" width=900 />
 
 - Intl:
-<br> <img src="https://github.com/miaht94/Flutter_Homework/blob/master/bai19_intl/ezgif-5-38944d8b39.gif?raw=true" width=900 />
+<br> <img src="https://im2.ezgif.com/tmp/ezgif-2-fe2cdca5f2.gif" width=900 />
