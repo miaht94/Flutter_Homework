@@ -3,6 +3,8 @@ import 'package:scoped_model/scoped_model.dart';
 import 'dart:async'; 
 import 'dart:convert'; 
 import 'package:http/http.dart' as http;
+
+import '../constant.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Food extends Model {
@@ -84,7 +86,7 @@ class Food extends Model {
     return parsed.map<Food>((json) => Food.fromJson(json)).toList();
   }
   static Future<List<Food>> fetchFoods() async {
-    final res = await http.get(Uri.parse("http://192.168.56.1:8080/foods.json"));
+    final res = await http.get(Uri.parse(entryToFoodsDotJson));
     if (res.statusCode == 200) {
       return Food.parseFood(res.body);
     } else {
